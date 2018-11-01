@@ -1,0 +1,10 @@
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\bin\Debug\Motor_Imagery_Protocol.exe.config
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\bin\Debug\Motor_Imagery_Protocol.exe
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\bin\Debug\Motor_Imagery_Protocol.pdb
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\obj\Debug\Motor_Imagery_Protocol.csprojAssemblyReference.cache
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\obj\Debug\Motor_Imagery_Protocol.FormMI.resources
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\obj\Debug\Motor_Imagery_Protocol.Properties.Resources.resources
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\obj\Debug\Motor_Imagery_Protocol.csproj.GenerateResource.cache
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\obj\Debug\Motor_Imagery_Protocol.csproj.CoreCompileInputs.cache
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\obj\Debug\Motor_Imagery_Protocol.exe
+C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Motor_Imagery_Protocol\obj\Debug\Motor_Imagery_Protocol.pdb
