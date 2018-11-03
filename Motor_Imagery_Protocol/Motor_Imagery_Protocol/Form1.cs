@@ -28,12 +28,13 @@ namespace Motor_Imagery_Protocol
         // Lista de imagens dos movimentos que devem ser executados
         List<Bitmap> imageList = new List<Bitmap>();
 
+        System.Media.SoundPlayer player = new System.Media.SoundPlayer(soundLocation: @"C:\Users\BioLab\Downloads\500-hz-sine-wave-sound-frequency-tone.wav");
+        
+
         //Carregando todas as imagens usadas
-        Bitmap img0 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\nada.jpg");
-        Bitmap img1 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\NeutroE.jpg");
-        Bitmap img2 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\NeutroD.jpg");
-        Bitmap img3 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\FechaE.jpg");
-        Bitmap img4 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\FechaD.jpg");
+        Bitmap img1 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\SetaE.jpg");
+        Bitmap img2 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\SetaD.jpg");
+        Bitmap img3 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\+.jpg");
 
         //Salvar o numero da coleta
         int a = 1;
@@ -45,11 +46,9 @@ namespace Motor_Imagery_Protocol
 
         private void ImageShow()
         {
-            imageList.Add(img0);
             imageList.Add(img1);
             imageList.Add(img2);
             imageList.Add(img3);
-            imageList.Add(img4);
 
             for (int i = 0; i < 10; i++)
             {
@@ -63,7 +62,7 @@ namespace Motor_Imagery_Protocol
         }
 
         private void FormMI_Load(object sender, EventArgs e)
-        {
+        {            
             pnOne.Dock = DockStyle.Fill;
             pnTwo.Dock = DockStyle.Fill;
             pnTwo.Visible = false;
@@ -91,9 +90,16 @@ namespace Motor_Imagery_Protocol
             pnOne.Visible = false;
             pnTwo.Visible = true;
 
+            x = (pnTwo.Size.Width - pbCross.Width) / 2;
+            y = (pnTwo.Size.Height - pbCross.Height) / 2;
+            pbCross.Location = new Point(x, y);
+
             x = (pnTwo.Size.Width - pbMain.Width) / 2;
             y = (pnTwo.Size.Height - pbMain.Height) / 2;
             pbMain.Location = new Point(x, y);
+            
+
+            
         }
 
         private void BtColeta_Click(object sender, EventArgs e)
@@ -115,13 +121,13 @@ namespace Motor_Imagery_Protocol
                 TimerOne.Stop();
             }
         }
-
+        bool iImg = true;
         private void TimerOne_Tick(object sender, EventArgs e)
         {
             if (iRest == true)
             {
                 TimerOne.Interval = 2000;
-                pbMain.Image = imageList[0];
+                pbMain.Image = null;
                 iRest = false;
                 switch (countTwo)
                 {
@@ -133,11 +139,24 @@ namespace Motor_Imagery_Protocol
             }
             else
             {
-                Console.Beep(500, 1000);
+                if (iImg == true)
+                {
+                    TimerOne.Interval = 1000;
+                    pbCross.Image = imageList[2];
+                    player.Play();
+                    iImg = false;
+                }
+                else
+                {
+                    TimerOne.Interval = 4000;
+                    pbCross.Image = null;
+                    pbMain.Image = imageList[data[countTwo][countOne++] - 1];
+                    iRest = true;
+                    iImg = true;
+                }       
+                
 
-                TimerOne.Interval = 4000;
-                pbMain.Image = imageList[data[countTwo][countOne++]];
-                iRest = true;
+
                 switch (countOne)
                 {
                     case 2:
