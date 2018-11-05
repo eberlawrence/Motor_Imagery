@@ -28,33 +28,18 @@ namespace Motor_Imagery_Protocol
         // Lista de imagens dos movimentos que devem ser executados
         List<Bitmap> imageList = new List<Bitmap>();
 
-        System.Media.SoundPlayer player = new System.Media.SoundPlayer(soundLocation: @"C:\Users\BioLab\Downloads\500-hz-sine-wave-sound-frequency-tone.wav");
-        
+        System.Media.SoundPlayer player;
+
+        string currentPath = Environment.CurrentDirectory;
 
         //Carregando todas as imagens usadas
-        Bitmap img1 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\SetaE.jpg");
-        Bitmap img2 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\SetaD.jpg");
-        Bitmap img3 = new Bitmap(@"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\img\+.jpg");
+        Bitmap img1; Bitmap img2; Bitmap img3;
 
-        //Salvar o numero da coleta
-        int a = 1;
         bool iRest = true; bool iImg = true;
-        //Contagem da quantidade do numero de movimentos, total e parcial. contiInitial = incrementa as informações iniciais
-        int countInitial = 0; int countT = 0; int countP = 0;
+        //Contagem da quantidade do numero de movimentos, total e parcial.
+        int countT = 0; int countP = 0;
         // incrementam a lista de imagens e a imagem dentro da lista
         int countTwo = 0; int countOne = 0;
-
-        private void ImageShow()
-        {
-            imageList.Add(img1);
-            imageList.Add(img2);
-            imageList.Add(img3);
-
-            for (int i = 0; i < 10; i++)
-            {
-                data.Add(i, TwoMoviments.OrderBy(s => randonNum.Next()).Take(2).ToList());
-            }
-        }
         
         public FormMI()
         {
@@ -66,8 +51,6 @@ namespace Motor_Imagery_Protocol
             pnOne.Dock = DockStyle.Fill;
             pnTwo.Dock = DockStyle.Fill;
             pnTwo.Visible = false;
-
-
 
             x = (pnOne.Size.Width - BtAvancar.Width) / 2;
             y = (pnOne.Size.Height)*100 / 120 ;
@@ -89,6 +72,7 @@ namespace Motor_Imagery_Protocol
         {
             pnOne.Visible = false;
             pnTwo.Visible = true;
+            BtColeta.Enabled = false;
 
             x = (pnTwo.Size.Width - pbCross.Width) / 2;
             y = (pnTwo.Size.Height - pbCross.Height) / 2;
@@ -105,25 +89,55 @@ namespace Motor_Imagery_Protocol
 
         }
 
+        private void ImageShow()
+        {
+            player = new System.Media.SoundPlayer(soundLocation: currentPath + @"\img\beep.wav");
+            img1 = new Bitmap(currentPath + @"\img\SetaE.jpg");
+            img2 = new Bitmap(currentPath + @"\img\SetaD.jpg");
+            img3 = new Bitmap(currentPath + @"\img\+.jpg");
+            imageList.Add(img1);
+            imageList.Add(img2);
+            imageList.Add(img3);
+
+            for (int i = 0; i < 10; i++)
+            {
+                data.Add(i, TwoMoviments.OrderBy(s => randonNum.Next()).Take(2).ToList());
+            }
+        }
+
         private void BtColeta_Click(object sender, EventArgs e)
         {
-            for (int i = data.Count; i >= 0; i--)
-            {
-                data.Remove(i);
-            }
             if (BtColeta.Text == "Iniciar Coleta")
             {
                 BtColeta.Text = "Parar Coleta";
-                ImageShow();
                 TimerOne.Start();
-                DataSave();
             }
             else if (BtColeta.Text == "Parar Coleta")
             {
                 BtColeta.Text = "Iniciar Coleta";
                 TimerOne.Stop();
+                countTwo = 0;
+                countOne = 0;
+                countT = 0;
+                countP = 0;
+                lbCountT.Text = "0";
+                pbMain.Image = null;
+                pnTrigger.Visible = false;
+                BtColeta.Enabled = false;
             }
         }
+
+        private void BtSave_Click(object sender, EventArgs e)
+        {
+            if (tbName.Text != "")
+            {
+                ImageShow();
+                DataSave();
+                BtColeta.Enabled = true;
+            }
+        }
+
+
         private void TimerOne_Tick(object sender, EventArgs e)
         {
             if (iRest == true)
@@ -136,6 +150,15 @@ namespace Motor_Imagery_Protocol
                 {
                     case 10:
                         countTwo = 0;
+                        lbCountT.Text = "0";
+                        pbMain.Image = null;
+                        pnTrigger.Visible = false;
+                        for (int i = data.Count; i >= 0; i--)
+                        {
+                            data.Remove(i);
+                        }
+                        BtColeta.Text = "Iniciar Coleta";
+                        BtColeta.Enabled = false;
                         TimerOne.Stop();
                         break;
                 }
@@ -147,28 +170,30 @@ namespace Motor_Imagery_Protocol
                     TimerOne.Interval = 1000;
                     pbCross.Image = imageList[2];
                     pbCross.Visible = true;
+                    pbMain.Visible = false;
                     player.Play();
                     iImg = false;
                 }
                 else
                 {
                     TimerOne.Interval = 4000;
+                    pbMain.Visible = true;
                     pbCross.Visible = false;
                     pnTrigger.BackColor = Color.Black;
                     pbMain.Image = imageList[data[countTwo][countOne++] - 1];
+
+                    countP++;
                     iRest = true;
                     iImg = true;
-                }       
-                
-
-
+                }
                 switch (countOne)
                 {
                     case 2:
+                        countT++;
+                        lbCountT.Text = countT.ToString();
                         countOne = 0;
                         countTwo++;
                         break;
-
                 }
             }
         }
@@ -177,7 +202,7 @@ namespace Motor_Imagery_Protocol
 
         private void DataSave()
         {
-            var File = @"C:\Users\BioLab\Desktop\GitHub\Motor_Imagery\Motor_Imagery_Protocol\Respostas\" + tbName.Text + "-Resposta.txt";
+            var File = currentPath + @"\Respostas\" + tbName.Text + "-Resposta.txt";            
             using (var write = new StreamWriter(File))
                 foreach (KeyValuePair<int, List<int>> N in data)
                 {
