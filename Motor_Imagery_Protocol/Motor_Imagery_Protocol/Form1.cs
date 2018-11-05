@@ -38,7 +38,7 @@ namespace Motor_Imagery_Protocol
 
         //Salvar o numero da coleta
         int a = 1;
-        bool iRest = true;
+        bool iRest = true; bool iImg = true;
         //Contagem da quantidade do numero de movimentos, total e parcial. contiInitial = incrementa as informações iniciais
         int countInitial = 0; int countT = 0; int countP = 0;
         // incrementam a lista de imagens e a imagem dentro da lista
@@ -97,9 +97,12 @@ namespace Motor_Imagery_Protocol
             x = (pnTwo.Size.Width - pbMain.Width) / 2;
             y = (pnTwo.Size.Height - pbMain.Height) / 2;
             pbMain.Location = new Point(x, y);
-            
 
-            
+            x = Convert.ToInt16(pnTwo.Size.Width*0.05);
+            y = (pnTwo.Size.Height - 200);
+            pnTrigger.Location = new Point(x, y);
+
+
         }
 
         private void BtColeta_Click(object sender, EventArgs e)
@@ -121,14 +124,14 @@ namespace Motor_Imagery_Protocol
                 TimerOne.Stop();
             }
         }
-        bool iImg = true;
         private void TimerOne_Tick(object sender, EventArgs e)
         {
             if (iRest == true)
             {
-                TimerOne.Interval = 2000;
+                TimerOne.Interval = 3000;
                 pbMain.Image = null;
                 iRest = false;
+                pnTrigger.BackColor = Color.White;
                 switch (countTwo)
                 {
                     case 10:
@@ -143,13 +146,15 @@ namespace Motor_Imagery_Protocol
                 {
                     TimerOne.Interval = 1000;
                     pbCross.Image = imageList[2];
+                    pbCross.Visible = true;
                     player.Play();
                     iImg = false;
                 }
                 else
                 {
                     TimerOne.Interval = 4000;
-                    pbCross.Image = null;
+                    pbCross.Visible = false;
+                    pnTrigger.BackColor = Color.Black;
                     pbMain.Image = imageList[data[countTwo][countOne++] - 1];
                     iRest = true;
                     iImg = true;

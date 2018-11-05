@@ -35,14 +35,15 @@
             this.lbStartMessage2 = new System.Windows.Forms.Label();
             this.BtColeta = new System.Windows.Forms.Button();
             this.pnTwo = new System.Windows.Forms.Panel();
+            this.pbCross = new System.Windows.Forms.PictureBox();
             this.pbMain = new System.Windows.Forms.PictureBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.TimerOne = new System.Windows.Forms.Timer(this.components);
-            this.pbCross = new System.Windows.Forms.PictureBox();
+            this.pnTrigger = new System.Windows.Forms.FlowLayoutPanel();
             this.pnOne.SuspendLayout();
             this.pnTwo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCross)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMain)).BeginInit();
             this.SuspendLayout();
             // 
             // lbStartMessage1
@@ -99,6 +100,7 @@
             // 
             // pnTwo
             // 
+            this.pnTwo.Controls.Add(this.pnTrigger);
             this.pnTwo.Controls.Add(this.pbCross);
             this.pnTwo.Controls.Add(this.pbMain);
             this.pnTwo.Controls.Add(this.tbName);
@@ -108,6 +110,14 @@
             this.pnTwo.Name = "pnTwo";
             this.pnTwo.Size = new System.Drawing.Size(315, 450);
             this.pnTwo.TabIndex = 4;
+            // 
+            // pbCross
+            // 
+            this.pbCross.Location = new System.Drawing.Point(95, 280);
+            this.pbCross.Name = "pbCross";
+            this.pbCross.Size = new System.Drawing.Size(190, 190);
+            this.pbCross.TabIndex = 6;
+            this.pbCross.TabStop = false;
             // 
             // pbMain
             // 
@@ -130,13 +140,14 @@
             this.TimerOne.Interval = 1;
             this.TimerOne.Tick += new System.EventHandler(this.TimerOne_Tick);
             // 
-            // pbCross
+            // pnTrigger
             // 
-            this.pbCross.Location = new System.Drawing.Point(95, 280);
-            this.pbCross.Name = "pbCross";
-            this.pbCross.Size = new System.Drawing.Size(190, 190);
-            this.pbCross.TabIndex = 6;
-            this.pbCross.TabStop = false;
+            this.pnTrigger.BackColor = System.Drawing.Color.White;
+            this.pnTrigger.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pnTrigger.Location = new System.Drawing.Point(7, 261);
+            this.pnTrigger.Name = "pnTrigger";
+            this.pnTrigger.Size = new System.Drawing.Size(150, 150);
+            this.pnTrigger.TabIndex = 7;
             // 
             // FormMI
             // 
@@ -154,8 +165,8 @@
             this.pnOne.PerformLayout();
             this.pnTwo.ResumeLayout(false);
             this.pnTwo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbCross)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMain)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -172,6 +183,7 @@
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.PictureBox pbMain;
         private System.Windows.Forms.PictureBox pbCross;
+        private System.Windows.Forms.FlowLayoutPanel pnTrigger;
     }
 }
 
