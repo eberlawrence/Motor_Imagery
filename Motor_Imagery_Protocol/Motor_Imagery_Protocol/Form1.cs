@@ -83,7 +83,7 @@ namespace Motor_Imagery_Protocol
             pbMain.Location = new Point(x, y);
 
             x = Convert.ToInt16(pnTwo.Size.Width*0.05);
-            y = (pnTwo.Size.Height - 200);
+            y = (pnTwo.Size.Height - 130);
             pnTrigger.Location = new Point(x, y);
 
 
@@ -110,6 +110,7 @@ namespace Motor_Imagery_Protocol
             if (BtColeta.Text == "Iniciar Coleta")
             {
                 BtColeta.Text = "Parar Coleta";
+                pnTrigger.Visible = true;
                 TimerOne.Start();
             }
             else if (BtColeta.Text == "Parar Coleta")
